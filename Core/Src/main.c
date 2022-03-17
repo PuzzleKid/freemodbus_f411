@@ -19,13 +19,12 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "dma.h"
-#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "mb.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -89,16 +88,18 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_USART1_UART_Init();
-  MX_TIM9_Init();
-  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  log("###Start###\r\n");
+	eMBInit(MB_RTU, 0x01, 1, 9600, MB_PAR_ODD);
+	eMBEnable();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  //LED_RED_TOGGLE();
+	  eMBPoll();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -146,7 +147,15 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+int _write( int fd, const void *buf, size_t count )
+{
+//  while(huart1.gState != HAL_UART_STATE_READY){
+//
+//  }
+//  HAL_UART_Transmit_DMA(&huart1, (uint8_t *)buf, count);
+	HAL_UART_Transmit(&huart1, (uint8_t *)buf, count,100);
+  return count;
+}
 /* USER CODE END 4 */
 
 /**
