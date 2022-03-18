@@ -100,7 +100,7 @@ xMBPortSerialPutByte( CHAR ucByte )
      * called. */
 	//LPUART1->DR = ucByte;
     log("%s\r\n",__FUNCTION__);
-	if(HAL_UART_Transmit (&huart2 ,(uint8_t *)&ucByte,1,0x01) != HAL_OK ){
+	if(HAL_UART_Transmit (&huart2 ,(uint8_t *)&ucByte,1,100) != HAL_OK ){
         log("Transmit FALSE\r\n");
 		return FALSE;
 	}
@@ -116,7 +116,7 @@ xMBPortSerialGetByte( CHAR * pucByte )
      */
     //*pucByte = (LPUART1->DR & (uint16_t)0x00FF);
     log("%s\r\n",__FUNCTION__);
-    if(HAL_UART_Receive (&huart2 ,(uint8_t *)pucByte,1,0x01) != HAL_OK ){
+    if(HAL_UART_Receive (&huart2 ,(uint8_t *)pucByte,1,100) != HAL_OK ){
         log("UART_Receive != OK\r\n");
     	return FALSE;
     }

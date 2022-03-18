@@ -36,7 +36,7 @@ BOOL
 xMBPortTimersInit( USHORT usTim1Timerout50us )
 {
 	log("%s\r\n",__FUNCTION__);
-	HAL_TIM_Base_DeInit(&htim9);
+
 
 	TIM_ClockConfigTypeDef sClockSourceConfig = {0};
 

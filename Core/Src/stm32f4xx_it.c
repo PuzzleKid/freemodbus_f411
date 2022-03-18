@@ -238,26 +238,15 @@ void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
     log("%s\r\n",__FUNCTION__);
-//    if(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_RXNE))			// 接收非空中断标记被置�?
-//    {
-//        __HAL_UART_CLEAR_FLAG(&huart2, UART_FLAG_RXNE);			// 清除中断标记
-//        prvvUARTRxISR();										// 通知modbus有数据到�?
-//    }
-//
-//    if(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_TXE))				// 发�?�为空中断标记被置位
-//    {
-//        __HAL_UART_CLEAR_FLAG(&huart2, UART_FLAG_TXE);			// 清除中断标记
-//        prvvUARTTxReadyISR();									// 通知modbus数据可以发松
-//    }
+
 	uint8_t tmp;
-	if(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_PE))//奇偶校验位判�?
+	if(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_PE))//校验错误
 	{
 		HAL_UART_Receive(&huart2,&tmp,1,1);
-	}
-
-	else if(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_RXNE)&&__HAL_UART_GET_IT_SOURCE(&huart2,UART_IT_RXNE))
+	}else if(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_RXNE)&&__HAL_UART_GET_IT_SOURCE(&huart2,UART_IT_RXNE))
 	{
 		prvvUARTRxISR();
+
 
 	}
 	if(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TXE)&&__HAL_UART_GET_IT_SOURCE(&huart2,UART_IT_TXE))

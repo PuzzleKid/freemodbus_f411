@@ -68,7 +68,7 @@ eMBFuncReadInputRegister( UCHAR * pucFrame, USHORT * usLen )
     {
         usRegAddress = ( USHORT )( pucFrame[MB_PDU_FUNC_READ_ADDR_OFF] << 8 );
         usRegAddress |= ( USHORT )( pucFrame[MB_PDU_FUNC_READ_ADDR_OFF + 1] );
-        usRegAddress++;
+        usRegAddress++;//这个地方有点怪
 
         usRegCount = ( USHORT )( pucFrame[MB_PDU_FUNC_READ_REGCNT_OFF] << 8 );
         usRegCount |= ( USHORT )( pucFrame[MB_PDU_FUNC_READ_REGCNT_OFF + 1] );
@@ -78,7 +78,7 @@ eMBFuncReadInputRegister( UCHAR * pucFrame, USHORT * usLen )
          */
         if( ( usRegCount >= 1 )
             && ( usRegCount < MB_PDU_FUNC_READ_REGCNT_MAX ) )
-        {
+        {//开始把接收数据缓存装载成发送数据
             /* Set the current PDU data pointer to the beginning. */
             pucFrameCur = &pucFrame[MB_PDU_FUNC_OFF];
             *usLen = MB_PDU_FUNC_OFF;

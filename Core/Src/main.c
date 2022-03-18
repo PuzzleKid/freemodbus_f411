@@ -89,8 +89,11 @@ int main(void)
   MX_DMA_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  LED_RED_OFF();
   log("###Start###\r\n");
-	eMBInit(MB_RTU, 0x01, 1, 9600, MB_PAR_ODD);
+
+//  log("###1111test1111###\r\n");
+	eMBInit(MB_RTU, 0x01, 1, 1200, MB_PAR_EVEN);
 	eMBEnable();
   /* USER CODE END 2 */
 
@@ -98,7 +101,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  //LED_RED_TOGGLE();
+
 	  eMBPoll();
     /* USER CODE END WHILE */
 
@@ -150,7 +153,7 @@ void SystemClock_Config(void)
 int _write( int fd, const void *buf, size_t count )
 {
 //  while(huart1.gState != HAL_UART_STATE_READY){
-//
+////	  LED_RED_ON();
 //  }
 //  HAL_UART_Transmit_DMA(&huart1, (uint8_t *)buf, count);
 	HAL_UART_Transmit(&huart1, (uint8_t *)buf, count,100);
